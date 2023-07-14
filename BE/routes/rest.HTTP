@@ -7,7 +7,7 @@ GET http://localhost:6060/authors/64aeedb4ff4953dceb54284e
 ##################
 
 POST http://localhost:6060/authors HTTP/1.1
-Content-Type: "application/json"
+Content-Type: application/json
 
 {
 	"name": "Silvio",
