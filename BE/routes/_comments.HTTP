@@ -1,0 +1,12 @@
+
+##################
+
+POST http://localhost:5051/comments/create HTTP/1.1
+Content-Type: application/json
+
+{
+	"postId": "64bd9ae9d5fe87cb333de0b8",
+	"userName": "64b97e3839a38935ad9107a5",
+	"content": "commento a caso",
+	"rating": 3
+}
