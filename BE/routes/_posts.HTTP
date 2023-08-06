@@ -1,4 +1,5 @@
-GET http://localhost:6060/posts
+GET http://localhost:5051/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ2FybG8iLCJzZWNvbmROYW1lIjoiTWFnbm8iLCJlbWFpbCI6InNhY3JvQHJvbWFub2ltcGVyby5jb20iLCJiaXJ0aERhdGUiOiIwMi8wMS8yMDAxIiwiYXZhdGFyIjoiaHR0cDovL3JmZGYuanBnIiwiaWQiOiI2NGM3Zjk1OTFkOWE3MjkyMjI4MGE0MjciLCJpYXQiOjE2OTEyNDg2MTAsImV4cCI6MTY5MTI5MTgxMH0.YKMvuM9ybfTunHD7qhNr1CTTJhF47NYqODTw5_YAlx0
 
 #####
 POST http://localhost:5051/posts/create HTTP/1.1

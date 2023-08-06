@@ -30,7 +30,8 @@ const AuthorModelSchema = new mongoose.Schema({
 
 	avatar: {
 		type: String,
-		required: true,
+		required: false,
+		default: "https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-image-700-205124837.jpg"
 	},
 
 	posts: [

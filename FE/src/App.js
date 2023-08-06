@@ -1,15 +1,21 @@
 import './App.css';
+import LoginForm from './components/loginForm.jsx/LoginForm';
 import NavigationBar from './components/navigationBar/NavigationBar';
-import NewPostModal from './components/newPostModal/NewPostModal';
 import RegistrationAuthorForm from './components/registrationAuthorForm/RegistrationAuthorForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Homepage from './pages/Homepage';
 
 function App() {
   return (
-    <>
-     <NavigationBar/>
-     <RegistrationAuthorForm />
-     <NewPostModal/>
-    </>
+    <Router>
+      <NavigationBar />
+      <Routes>
+        <Route path='/' exact element={<LoginForm />}/>
+        <Route path='/register' element={<RegistrationAuthorForm />} />
+        <Route path='/homepage' element={<Homepage />} />        
+      </Routes>
+
+    </Router>
   );
 }
 

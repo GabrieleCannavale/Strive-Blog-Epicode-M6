@@ -1,48 +1,39 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { Form } from "react-bootstrap";
 import React from "react";
 import { useDispatch } from 'react-redux';
 import { postBlogPosts } from "../../reducers/postSlice";
 
 function NewPostModal() {
-  const [category, setCategory] = useState("");
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [content, setContent] = useState("");
-  const [readTimeValue, setReadTimeValue] = useState("");
-  const [readTimeUnit, setReadTimeUnit] = useState("");
-  const [cover, setCover] = useState(null);
+
   const dispatch = useDispatch();
+  const category = useRef("");
+  const title = useRef("");
+  const author = useRef("");
+  const content = useRef("");
+  const readTimeValue = useRef("");
+  const readTimeUnit = useRef("");
+  const cover = useRef("");
+ 
+  const handleSubmitPost = () => {
 
-  const handleFileChange = (e) => {
-    setCover(e.target.files[0]);
-  };
-
-  const submitForm = async (e) => {
-    e.preventDefault();
-
-    if (cover) {
-      
-
-
-      const postPayload = {
-        category: category,
-        title: title,
-        author: author,
-        content: content,
-        readTime: {
-          value: readTimeValue,
-          unit: readTimeUnit,
-        },
-        cover: cover,
-      };
-
-      dispatch(postBlogPosts(postPayload));
-
-      console.log(postPayload);
+    const postData = {
+      category: category.current.value,
+      title: title.current.value,
+      author: author.current.value,
+      content: content.current.value,
+      readTime: {
+        value: readTimeValue.current.value,
+        unit: readTimeUnit.current.value,
+      },
+      cover: cover.current.files[0],
     }
-  };
+      
+    dispatch(postBlogPosts(postData))
+  }
+  
 
   const [show, setShow] = useState(false);
 
@@ -60,51 +51,24 @@ function NewPostModal() {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form encType="multipart/form-data" onSubmit={submitForm}>
-            <input
-              placeholder="category"
-              type="text"
-              onChange={(e) => setCategory(e.target.value)}
-            />
-            <input
-              placeholder="title"
-              type="text"
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <input
-              placeholder="cover"
-              type="file"
-              onChange={handleFileChange}
-            />
-            <input
-              placeholder="read time value"
-              type="text"
-              onChange={(e) => setReadTimeValue(e.target.value)}
-            />
-            <input
-              placeholder="read time unit"
-              type="text"
-              onChange={(e) => setReadTimeUnit(e.target.value)}
-            />
-            <input
-              placeholder="author id"
-              type="text"
-              onChange={(e) => setAuthor(e.target.value)}
-            />
-            <input
-              placeholder="content"
-              type="text"
-              onChange={(e) => setContent(e.target.value)}
-            />
+          <Form>
+            <Form.Control type="input" className="my-1" ref={category} placeholder="Category" />
+            <Form.Control type="input" className="my-1" ref={title} placeholder="Title" />
+            <Form.Control type="input" className="my-1" ref={author} placeholder="Author ID" />
+            <Form.Control type="input" className="my-1" ref={content} placeholder="Content" />
+            <Form.Control type="input" className="my-1" ref={readTimeValue} placeholder="" />
+            <Form.Control type="input" className="my-1" ref={readTimeUnit} defaultValue={"min"} placeholder="Title" />
+            <Form.Label>add a post cover:</Form.Label>
+            <Form.Control type="file" className="my-1" ref={cover} />
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="primary" type="submit">
-                Post
+              <Button variant="primary" onClick={handleSubmitPost}>
+                Post Now
               </Button>
             </Modal.Footer>
-          </form>
+          </Form>
         </Modal.Body>
       </Modal>
     </>

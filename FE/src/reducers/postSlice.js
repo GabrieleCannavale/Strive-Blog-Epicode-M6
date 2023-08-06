@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+import axios from 'axios';
+
 
 const initialState = {
-	response: null,
+	postsArrayRedux: [],
 	status: "idle",
 }
 
@@ -21,36 +23,34 @@ const postSlice = createSlice({
 			})
 			.addCase(postBlogPosts.pending, (state) => {
 				state.status = "pending";
-			});
+			})
+			.addCase(getBlogPost.fulfilled, (state, action) => {
+				state.postsArrayRedux = action.payload;
+			})
 	}
 });
 
-export default postSlice.reducer;
-
+//! POST POST
 export const postBlogPosts = createAsyncThunk(
 	"blogPost/POST",
 	async (postPayload) => {
-		const data = new FormData();
-		data.append("category", postPayload.category);
-		data.append("title", postPayload.title);
-		data.append("cover", postPayload.cover);
-		data.append("readTimeValue", postPayload.readTime.value);
-		data.append("readTimeUnit", postPayload.readTime.unit);
-		data.append("author", postPayload.author);
-		data.append("content", postPayload.content);
+		const form = new FormData();
+		form.append("category", postPayload.category);
+		form.append("title", postPayload.title);
+		form.append("cover", postPayload.cover);
+		form.append("readTimeValue", postPayload.readTime.value);
+		form.append("readTimeUnit", postPayload.readTime.unit);
+		form.append("author", postPayload.author);
+		form.append("content", postPayload.content);
 		try {
-			const res = await fetch("http://localhost:5051/posts/create", {
-			method: "POST",
-			body: data,
-
-			headers: {
-				"Content-Type": "multipart/form-data"
-			}
-
-		})
+			const res = await axios.post("http://localhost:5051/posts/create", form, {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			})
 
 		console.log(res);
-
+		return res.data;
 		
 		} catch (error) {
 			console.log(error);
@@ -58,28 +58,20 @@ export const postBlogPosts = createAsyncThunk(
 		
 	});
 
-/* export const postBlogPosts = createAsyncThunk(
-	"blogPost/post",
-	async (postPayload) => {
-
-		const res = await fetch("http://localhost:6060/posts/create", {
-			method: "POST",
-			body: JSON.stringify(postPayload),
-		});
-
-		return await res.json();
-	}); */
-
-/* export const upCover = createAsyncThunk(
-	"cover/uploadCover",
-	async (file) => {
-		const res = await fetch("http://localhost:6060/posts/internalUpload", {
-			headers: {
-				"Content-Type": "multipart/form-data"
-			},
-			method: "POST",
-			body: file,
-		});
-		return await res.json();
+//! GET POSTS	
+export const getBlogPost = createAsyncThunk(
+	'blogPost/GET',
+	async () => {
+		try {
+		const res = await axios.get('http://localhost:5051/posts');
+		/* if (!res.ok) {
+			console.log(`HTTP error! status: ${res.status}`);
+		} */
+		return res.data
+		} catch (error) {
+		console.error(error);
+		}
 	}
-) */
+)
+
+export default postSlice.reducer;

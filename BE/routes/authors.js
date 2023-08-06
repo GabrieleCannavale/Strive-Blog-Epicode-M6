@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose')
 const router = express.Router();
 const AuthorModel = require('../models/AuthorModel');
 const bcrypt = require("bcrypt");
@@ -56,7 +55,6 @@ router.post('/register/authors', Avatar.single("avatar"), async (req, res) => {
 		password: hashedPassword,
 		email: req.body.email,
 		birthDate: req.body.birthDate,
-		avatar: req.file.path,
 	});
 	
 	try{

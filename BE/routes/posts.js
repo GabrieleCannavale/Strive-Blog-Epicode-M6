@@ -1,43 +1,11 @@
 const express = require('express');
 const PostsModel = require('../models/postModel');
 const AuthorModel = require('../models/AuthorModel');
-
-
 const post = express.Router();
 
-const multer = require('multer');
-const cloudinary = require('cloudinary');
-const {CloudinaryStorage} = require('multer-storage-cloudinary');
-
-
-const postStorage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, 'uploads')
-	},
-	filename: (req, file, cb) => {
-		console.log(file);
-		const uniqueSuffix = `${crypto.randomUUID()}`;
-		const fileExt = file.originalname.split('.').pop();
-		cb(null, `${file.originalname}-${uniqueSuffix}.${fileExt}`)
-	}
-});
-
-const uploads = multer({ storage: postStorage});
-
- /* post.post('/posts/internalUpload', uploads.single('cover'), async (req, res) => {
-
-	const imageURL = req.protocol + "://" + req.get(host);
-	const imageName = req.file.filename;
-
-	try {
-		res.status(200).send({ cover:`${imageURL}/uploads/${imageName}`})
-	} catch (error) {
-        console.error(500).send({
-            statusCode: 500,
-            message: 'Upload error, something went wrong!!'
-        })
-    }
-}); */
+//middlewares
+const verifyToken = require("../middlewares/verifyToken")
+const PostImages = require("../middlewares/uploadPostImage");
 
 
 post.get("/posts", async (req, res) => {
@@ -118,12 +86,9 @@ post.get("/posts/:postId", async (req, res) => {
 	}
 });
 
-post.post("/posts/create", uploads.single('cover'), async (req, res) => {
+post.post("/posts/create", PostImages.single('cover'), async (req, res) => {
 	
-	console.log(req.body);
-
-	const imageURL = req.protocol + "://" + req.get(host);
-	const imageName = req.file.filename;
+	
 
 	const user = await AuthorModel.findOne({ _id: req.body.author })
 	
@@ -139,7 +104,7 @@ post.post("/posts/create", uploads.single('cover'), async (req, res) => {
 	const newPost = new PostsModel({
 		category: req.body.category,
 		title: req.body.title,
-		cover: `${imageURL}/uploads/${imageName}`,
+		cover: req.file.path,
 		readTime: req.body.readTime,
 		author: user._id,
 		content: req.body.content,

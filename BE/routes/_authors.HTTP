@@ -6,14 +6,13 @@ GET http://localhost:5051/authors/64aeedb4ff4953dceb54284e
 
 ##################
 
-POST http://localhost:5051/authors HTTP/1.1
+POST http://localhost:5051/register/authors HTTP/1.1
 Content-Type: application/json
 
 {
-	"name": "Carlo",
-    "secondName": "Magno",
-    "email": "sacro@romanoimpero.com",
-    "birthDate": "02/01/2001",
-    "password":"PDPDPD1",
-    "avatar": "http://rfdf.jpg"
+	"name": "Pino",
+    "secondName": "Insegno",
+    "email": "pino@premiataditta.it",
+    "birthDate": "02/01/1980",
+    "password":"LAGATTANERA"
 }
