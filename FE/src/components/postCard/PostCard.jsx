@@ -10,7 +10,7 @@ function PostCard({post}) {
         <Card.Text>
           {post.content}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary">see comments</Button>
       </Card.Body>
     </Card>
   );
