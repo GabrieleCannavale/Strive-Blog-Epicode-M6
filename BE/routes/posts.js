@@ -9,7 +9,7 @@ const PostImages = require("../middlewares/uploadPostImage");
 
 
 post.get("/posts", async (req, res) => {
-	const { page = 1, pageSize = 5 } = req.query;
+	const { page = 1, pageSize = 100 } = req.query;
 	try {
 		const posts = await PostsModel.find()
 			.limit(pageSize)

@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-function PostCard(post) {
+function PostCard({post}) {
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={post.cover} />

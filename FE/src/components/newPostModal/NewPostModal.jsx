@@ -31,7 +31,7 @@ function NewPostModal() {
       cover: cover.current.files[0],
     }
       
-    dispatch(postBlogPosts(postData))
+    dispatch(postBlogPosts(postData)).then(() => handleClose())
   }
   
 
