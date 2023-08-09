@@ -13,7 +13,7 @@ function PostContainer() {
   useEffect(() => {
     dispatch(getBlogPost());
   }, []);
-
+  
   return (
     <Container>
       <Row>

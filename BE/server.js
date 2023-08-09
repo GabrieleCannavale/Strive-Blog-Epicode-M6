@@ -11,6 +11,7 @@ const authorsRoute = require('./routes/authors');
 const postsRoute = require("./routes/posts");
 const commentRoute = require('./routes/comments');
 const loginRoute = require("./routes/login");
+const githubRoute = require("./routes/githubRoutes")
 //middlewares requires
 const logger = require('./middlewares/logger');
 const commentModel = require('./models/commentModel');
@@ -29,6 +30,7 @@ app.use('/', authorsRoute);
 app.use('/', postsRoute);
 app.use('/', commentRoute);
 app.use("/", loginRoute);
+app.use("/", githubRoute);
 
 
 mongoose.connect(process.env.MONGO_DB_URL);

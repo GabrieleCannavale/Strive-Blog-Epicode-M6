@@ -8,17 +8,23 @@ function LoginForm() {
   const [loginFormData, setLoginFormData] = useState({});
   //console.log(loginFormData);
 
-  const loginSubmit = async (e) => {e.preventDefault();
-  try {
-    const res = await axios.post('http://localhost:5051/login', loginFormData)
-    if (res.data.token) {
-      localStorage.setItem("userLoggedIn", JSON.stringify(res.data.token));
-      navigate("/homepage")
+  const loginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:5051/login', loginFormData)
+      if (res.data.token) {
+        localStorage.setItem("userLoggedIn", JSON.stringify(res.data.token));
+        navigate("/homepage")
+      }
+    } catch (error) {
+      console.log(error)
     }
-  } catch (error) {
-    console.log(error)
-  }
-  }
+  };
+
+
+  const loginGithubSubmit = () => {
+    window.location.href = 'http://localhost:5051/auth/github'
+  };
 
   return (
     <div>
@@ -66,6 +72,10 @@ function LoginForm() {
                       <div className="d-grid">
                         <Button variant="primary" type="submit">
                           Login
+                        </Button>
+
+                        <Button variant="dark" type="submit" onClick={loginGithubSubmit}>
+                          Login GITHUB
                         </Button>
                       </div>
                     </Form>
