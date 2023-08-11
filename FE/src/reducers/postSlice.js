@@ -27,6 +27,10 @@ const postSlice = createSlice({
 			.addCase(getBlogPost.fulfilled, (state, action) => {
 				state.postsArrayRedux = action.payload;
 			})
+			.addCase(deleteBlogPost.fulfilled, (state, action) => {
+				state.postsArrayRedux = state.postsArrayRedux.filter(
+					(post) => post._id !== action.payload);
+			});
 	}
 });
 
@@ -77,6 +81,21 @@ export const getBlogPost = createAsyncThunk(
 			console.error(error);
 		}
 	}
-)
+);
+
+//! DELETE POST
+ export const deleteBlogPost = createAsyncThunk(
+	'blogPost/DELETE',
+	async (postId) => {
+		try {
+			const res = await axios.delete(`http://localhost:5051/posts/${postId}`)
+
+			return res.data.posts;
+
+		} catch(error) {
+			console.log(error)
+		}
+	}); 
 
 export default postSlice.reducer;
+
