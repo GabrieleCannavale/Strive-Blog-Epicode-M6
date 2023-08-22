@@ -1,11 +1,13 @@
 import NewPostModal from "../components/newPostModal/NewPostModal";
 import PostContainer from "../components/postContainer/PostContainer";
+import NavigationBar from "../components/navigationBar/NavigationBar";
 
 const Homepage = () => {
-	return(
+	return (
 		<>
-		<NewPostModal/>
-		<PostContainer/>
+			<NavigationBar />
+			<NewPostModal />
+			<PostContainer />
 		</>
 	)
 };

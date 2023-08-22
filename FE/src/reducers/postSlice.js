@@ -6,27 +6,32 @@ import axios from 'axios';
 const initialState = {
 	postsArrayRedux: [],
 	status: "idle",
+	singlePost: {}
 }
 
 const postSlice = createSlice({
 	name: "blogPosts",
 	initialState,
-	reducers: {},
+	reducers: {
+		filterPosts: (state, action) => {
+			state.postsArrayRedux = state.postsArrayRedux.filter((post) => {
+				return post.title.toLowerCase().includes(action.payload.toLowerCase());
+			})
+		}
+	},
 	extraReducers: (builder) => {
 		builder
-			/* .addCase(postBlogPosts.fulfilled, (state, action) => {
-				state.status = "idle";
-				state.response = action.payload;
-			})
-			.addCase(postBlogPosts.rejected, (state) => {
-				state.status = "error";
-			})
-			.addCase(postBlogPosts.pending, (state) => {
-				state.status = "pending";
-			}) */
+			//*GET CASES
 			.addCase(getBlogPost.fulfilled, (state, action) => {
 				state.postsArrayRedux = action.payload;
 			})
+
+			//*GET BY ID CASES
+			.addCase(blogPostById.fulfilled, (state, action) => {
+				state.singlePost = action.payload;
+			})
+			
+			//*DELETE CASES
 			.addCase(deleteBlogPost.fulfilled, (state, action) => {
 				state.postsArrayRedux = state.postsArrayRedux.filter(
 					(post) => post._id !== action.payload);
@@ -53,7 +58,7 @@ export const postBlogPosts = createAsyncThunk(
 				}
 			})
 			.then(() => dispatch(getBlogPost()) )
-			console.log(res);
+			//console.log(res);
 			return res.data;
 
 		} catch (error) {
@@ -63,10 +68,6 @@ export const postBlogPosts = createAsyncThunk(
 	});
 
 //! GET POSTS	
-
-
-
-
 export const getBlogPost = createAsyncThunk(
 	'blogPost/GET',
 	async () => {
@@ -83,6 +84,23 @@ export const getBlogPost = createAsyncThunk(
 	}
 );
 
+//! GET SINGLE POST BY ID
+export const blogPostById = createAsyncThunk(
+	"blogPosts/getById",
+	async (id) => {
+	  try {
+		const res = await axios.get(`http://localhost:5051/posts/` + id);
+		if (!res) {
+		  console.log(`HTTP error! status: ${res.status}`);
+		}
+		//console.log(res.data);
+		return res.data.postById;
+	  } catch (error) {
+		console.log(error);
+	  }
+	}
+  );
+
 //! DELETE POST
  export const deleteBlogPost = createAsyncThunk(
 	'blogPost/DELETE',
@@ -97,5 +115,6 @@ export const getBlogPost = createAsyncThunk(
 		}
 	}); 
 
+export const { filterPosts } = postSlice.actions;	
 export default postSlice.reducer;
 

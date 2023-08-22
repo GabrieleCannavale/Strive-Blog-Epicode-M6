@@ -3,9 +3,11 @@ import React, { useRef } from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { authorPost } from '../../reducers/authorSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function RegistrationAuthorForm() {
 
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const name = useRef("");
 	const secondName = useRef("");
@@ -27,7 +29,7 @@ function RegistrationAuthorForm() {
 		}
 
 		dispatch(authorPost(data));
-		
+		navigate("/homepage")
 	}
 
 	return (

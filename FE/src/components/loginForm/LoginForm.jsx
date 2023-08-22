@@ -26,6 +26,10 @@ function LoginForm() {
     window.location.href = 'http://localhost:5051/auth/github'
   };
 
+  const handleSignUpClick = () => {
+    navigate("/registration"); 
+  };
+
   return (
     <div>
       <Container>
@@ -82,7 +86,7 @@ function LoginForm() {
                     <div className="mt-3">
                       <p className="mb-0  text-center">
                         Don't have an account?{" "}
-                        <a href="{''}" className="text-primary fw-bold">
+                        <a className="text-primary fw-bold" onClick={handleSignUpClick}>
                           Sign Up
                         </a>
                       </p>

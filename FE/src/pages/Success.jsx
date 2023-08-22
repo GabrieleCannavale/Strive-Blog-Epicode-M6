@@ -8,14 +8,14 @@ const Success = () => {
 	const navigate = useNavigate();
 
 	const { token } = useParams()
-	console.log(token);
+	//console.log(token);
 
 	const saveUserOnLocalStorage = () => {
 		localStorage.setItem("userLoggedIn", JSON.stringify(token))
 	};
 
 	const session = useSession();
-	console.log(session);
+	//console.log(session);
 
 	useEffect(() => {
 		if (token) {
@@ -29,7 +29,11 @@ const Success = () => {
 
 	return(
 		<>
-			{session ? <div>Benvenuto {session.username} </div> : <div> Github Login error </div>}
+			{session ? 
+			<div className="d-flex justify-content-center">
+				Benvenuto {session.username} 
+			</div> 
+			: <div> Github Login error </div>}
 		</>
 	)
 };

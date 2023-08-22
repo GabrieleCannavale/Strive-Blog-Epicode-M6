@@ -10,7 +10,7 @@ router.get('/authors', async (req, res) => {
 	try {
 		const authors = await AuthorModel.find()
 			.populate("posts");
-			console.log(authors)
+			//console.log(authors)
 		res.status(200).send({
 		statusCode: 200,
 		authors

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
 const initialState = {
-	author: null,
+	authorsArrayRedux: [],
 	status: "idle",
 };
 
@@ -12,18 +12,18 @@ const authorSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-		.addCase(authorPost.fulfilled, (state, action) => {
-			console.log("POST FULFILLED")
-		})
-	} 
+		.addCase(getAuthors.fulfilled, (state, action) => {
+			state.authorsArrayRedux = action.payload;
+		});
+	}
 });
 
-
+//! AUTHOR POST
 export const authorPost = createAsyncThunk(
 	"author/register",
 
 	async (author) => {
-		console.log(author)
+		//console.log(author)
 		const form = new FormData()
 
 		form.append("name", author.name);
@@ -40,7 +40,7 @@ export const authorPost = createAsyncThunk(
 					"Content-Type": "multipart/form-data"
 				}
 			})
-			console.log(res)
+			//console.log(res)
 			return res.data;
 
 		} catch (error) {
@@ -48,6 +48,24 @@ export const authorPost = createAsyncThunk(
 		}
 	}
 );
+
+//!GET AUTHORS
+export const getAuthors = createAsyncThunk(
+	"authors/get",
+	async () => {
+		try {
+			const res = await axios.get(`http://localhost:5051/authors`);
+			if (!res) {
+				console.log(`HTTP status: ${res.status}`);
+			}
+			//console.log(res.data);
+			return res.data.authors;
+		} catch (error) {
+			console.log(error);
+			throw error;
+		}
+	});
+
 
 
 export default authorSlice.reducer;
