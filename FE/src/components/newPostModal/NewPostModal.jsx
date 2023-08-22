@@ -5,24 +5,39 @@ import { Form } from "react-bootstrap";
 import React from "react";
 import { useDispatch } from 'react-redux';
 import { postBlogPosts } from "../../reducers/postSlice";
+import jwt_decode from "jwt-decode";
 
 function NewPostModal() {
 
   const dispatch = useDispatch();
   const category = useRef("");
   const title = useRef("");
-  const author = useRef("");
+  //const author = useRef("");
   const content = useRef("");
   const readTimeValue = useRef("");
   const readTimeUnit = useRef("");
   const cover = useRef("");
+
+ 
+  
  
   const handleSubmitPost = () => {
+    
+    const token = localStorage.getItem("userLoggedIn");
+    
+    //Check if token exist
+    if (token) {
 
-    const postData = {
+      // Decode token
+    const decodedToken = jwt_decode(token);
+    
+    //get author ID from decodedToken
+    const authorId = decodedToken.id
+    ;
+      const postData = {
       category: category.current.value,
       title: title.current.value,
-      author: author.current.value,
+      author: authorId, // <= author ID from token here!
       content: content.current.value,
       readTime: {
         value: readTimeValue.current.value,
@@ -32,6 +47,10 @@ function NewPostModal() {
     }
       
     dispatch(postBlogPosts(postData)).then(() => handleClose())
+    } else {
+      
+    }
+    
   }
   
 
@@ -54,7 +73,7 @@ function NewPostModal() {
           <Form>
             <Form.Control type="input" className="my-1" ref={category} placeholder="Category" />
             <Form.Control type="input" className="my-1" ref={title} placeholder="Title" />
-            <Form.Control type="input" className="my-1" ref={author} placeholder="Author ID" />
+            {/* <Form.Control type="input" className="my-1" ref={author} placeholder="Author ID" /> */}
             <Form.Control type="input" className="my-1" ref={content} placeholder="Content" />
             <Form.Control type="input" className="my-1" ref={readTimeValue} placeholder="" />
             <Form.Control type="input" className="my-1" ref={readTimeUnit} defaultValue={"min"} placeholder="Title" />

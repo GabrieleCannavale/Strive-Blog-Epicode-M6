@@ -10,7 +10,7 @@ login.post("/login", async (req, res) => {
 	if(!user) {
 		return res.status(404).send({
 			statusCode:404,
-			message: "LOGIN ERROR, pw or user not found!"
+			message: "LOGIN ERROR, password or user not found!"
 		})
 	};
 
@@ -19,7 +19,7 @@ login.post("/login", async (req, res) => {
 	if (!validPassword) {
 		return res.status(404).send({
 			statusCode:404,
-			message: "LOGIN ERROR, pw or user not found!"
+			message: "LOGIN ERROR, password or user not found!"
 		})
 	};
 
