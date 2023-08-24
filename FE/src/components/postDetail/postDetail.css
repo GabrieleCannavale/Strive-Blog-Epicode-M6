@@ -1,0 +1,66 @@
+/* PostDetail.css */
+
+/* Colore di spicco */
+:root {
+	--accent-color: #fca311; /* Sostituisci con il tuo colore di spicco desiderato */
+  }
+  
+  /* Stile generale del componente */
+  .post-card {
+	background-color: #ffffff; /* Colore di sfondo del card */
+	border: none;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-card .card-title {
+	color: #000000; /* Colore del titolo */
+	font-size: 24px;
+  }
+  
+  .post-card .card-text {
+	color: #333333; /* Colore del testo */
+	font-size: 16px;
+  }
+  
+  .post-card .card-img-top {
+	height: 300px; /* Altezza dell'immagine in cima al card */
+  }
+  
+  /* Form per i commenti */
+  form {
+	margin-top: 20px;
+  }
+  
+  form label {
+	color: #000000; /* Colore delle etichette dei campi */
+	font-weight: bold;
+  }
+  
+  form textarea,
+  form input[type="number"] {
+	background-color: #f4f4f4; /* Colore di sfondo dei campi di input */
+	border: none;
+	padding: 10px;
+	margin-bottom: 10px;
+  }
+  
+  form button[type="submit"] {
+	background-color: var(--accent-color); /* Colore di sfondo del pulsante di invio */
+	color: #ffffff; /* Colore del testo del pulsante di invio */
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+  }
+  
+  /* Commenti */
+  .post-comments {
+	margin-top: 20px;
+  }
+  
+  .post-comments .list-group-item {
+	background-color: #f4f4f4; /* Colore di sfondo di ogni commento */
+	border: none;
+	margin-bottom: 5px;
+	padding: 10px;
+  }
+  

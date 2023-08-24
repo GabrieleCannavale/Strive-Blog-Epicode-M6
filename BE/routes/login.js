@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 
 login.post("/login", async (req, res) => {
 	const user = await AuthorModel.findOne({email: req.body.email});
-	console.log(user);
+	//console.log(user);
 	if(!user) {
 		return res.status(404).send({
 			statusCode:404,

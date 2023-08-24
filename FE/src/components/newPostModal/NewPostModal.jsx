@@ -32,9 +32,9 @@ function NewPostModal() {
     const decodedToken = jwt_decode(token);
     
     //get author ID from decodedToken
-    const authorId = decodedToken.id
-    ;
-      const postData = {
+    const authorId = decodedToken.id;
+      
+    const postData = {
       category: category.current.value,
       title: title.current.value,
       author: authorId, // <= author ID from token here!
@@ -48,7 +48,7 @@ function NewPostModal() {
       
     dispatch(postBlogPosts(postData)).then(() => handleClose())
     } else {
-      
+      console.log("Something wrong");
     }
     
   }

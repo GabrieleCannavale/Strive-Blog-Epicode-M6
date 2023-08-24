@@ -29,7 +29,7 @@ function RegistrationAuthorForm() {
 		}
 
 		dispatch(authorPost(data));
-		navigate("/homepage")
+		navigate("/")
 	}
 
 	return (

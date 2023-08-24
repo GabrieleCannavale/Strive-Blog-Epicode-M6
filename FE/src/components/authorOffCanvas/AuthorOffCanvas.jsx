@@ -9,6 +9,7 @@ import AuthorProfile from "../authorProfile/AuthorProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import Form from "react-bootstrap/Form";
+import './authorOffCanvas.css'
 
 
 function AuthorOffCanvas() {

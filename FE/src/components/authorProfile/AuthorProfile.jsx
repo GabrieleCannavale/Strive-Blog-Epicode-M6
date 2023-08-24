@@ -1,16 +1,17 @@
-import React, { useRef } from "react";
-import './authorProfile.css'
+import React from "react";
+import './authorProfile.css';
 
 const AuthorProfile = ({ user }) => {
   return (
-    <div className="d-flex justify-content-center align-item-center me-2 ">
+    <div className="author-profile">
       <img
-        className="img-author-profile me-2"
+        className="img-author-profile"
         src={user.avatar}
         alt="avatarAuthor"
       />
-      <div className="d-flex flex-column justify-content-center align-item-center fs-4">
-        {user.name} {user.surname}
+      <div className="author-details">
+        <span className="author-name">{user.name}</span>
+        <span className="author-surname">{user.surname}</span>
       </div>
     </div>
   );
